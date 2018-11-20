@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-/// @title CryptoZombies Chapter 2
+/// @title CryptoZombies Chapter 3
 /// @author H4XF13LD MORRIS 💯💯😎💯💯 (documentation by Rex Hygate)
 // @Github https://github.com/SecurEth/CryptoZombiesT1/Chapter1
 // @SDD "./doc./System Description Document.md"

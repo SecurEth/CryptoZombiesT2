@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 /// @title CryptoZombies Chapter 2
 /// @author H4XF13LD MORRIS 💯💯😎💯💯 (documentation by Rex Hygate)
@@ -32,11 +32,11 @@ contract ZombieFeeding is ZombieFactory {
     // req ZFE_3 If the species variable is "kitty" put a 99 at the end of the dna
     // req ZFE_4 create a new zombie, called "Noname" with the resulting new dna
     // req ZFE_1 Ensure only the owner can execute the function
-    function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
+    function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) public {
         require(msg.sender == zombieToOwner[_zombieId], "Zombie not owned by you");
         Zombie storage myZombie = zombies[_zombieId];
-        _targetDna = _targetDna % dnaModulus;
-        uint newDna = (myZombie.dna + _targetDna) / 2;
+        uint mod_targetDna = _targetDna % dnaModulus;
+        uint newDna = (myZombie.dna + mod_targetDna) / 2;
         if (keccak256(abi.encodePacked(_species)) == keccak256(abi.encodePacked("kitty"))) {
             newDna = newDna - newDna % 100 + 99;
         }

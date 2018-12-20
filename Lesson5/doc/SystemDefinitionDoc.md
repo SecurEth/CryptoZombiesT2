@@ -1,6 +1,6 @@
-# System Description Document - CryptoZombies Lesson 4
+# System Description Document - CryptoZombies Lesson 5
 
-Crypto is a Zombie Card Battle and Trading Game designed for teaching Solidity (See cryptozombies.io).  It is organized lessons.  This documentation process example follows the lessons of the cryptozombies.io in order to show how documentation grows as a project develops.
+Crypto is a Zombie Card Battle and Trading Game designed for teaching Solidity (See cryptozombies.io).  It is organized lessons.  This documentation process example follows the lessons of the cryptozombies.io in order to show how documentation grows as a project develops.  This is the last lesson; 5.
 
 CryptoZombies is designed to be run from a java script website designed for this purpose.
 
@@ -14,8 +14,13 @@ The Game Administrator can set and change the owner of the CryptoKitties that th
 
 The Game Administrator can withdraw the funds in the account  (from fees for leveling up)
 
+### Traders
+Traders can trade the zombie ERC-721 tokens without needing to play (but of course they will play)
+
 ## Tokens
-This game has no tokens (yet).
+The zombies in this game can be traded as ERC-721.  The traders or players can check the ownership of a zombie or get a count of number of zombies anyone owns.
+
+It also allows transfer of zombies in two manners; the owner of a zombie can transfer it to another owner or the owner can just approve another address for a transfer.  Then the approved address transfers the zombie.  These transfers can be done from any website, not just the game site.
 
 ## Currency
 Players can Level up a zombie by paying a fee

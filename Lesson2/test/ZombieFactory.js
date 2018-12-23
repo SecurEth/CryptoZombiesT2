@@ -16,9 +16,9 @@ contract("ZombieFactory1", function(accounts) {
           var d = log.args.dna;
           d = d.toNumber(); // Print dna validates req ZF_1, ZF_2
           console.log("Id: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
-          assert.equal(n, 0, "Oops1");
+          assert.equal(n, 0, "Zombie id not 0");
         } else {
-          console.log("Error");
+          console.log("No Zombie event found");
         }
       }
     });
@@ -34,14 +34,14 @@ contract("ZombieFactory2", function(accounts) {
       myContract = await artifacts.require("ZombieFactory.sol").new();
     });
 
-    it("should complete successfully, text long enough", async function() {
+    it("Test ZF_4 Pass, text long enough", async function() {
       await myContract.createRandomZombie("text3", {from: accounts[1]});
     });
 
-    it("should abort with an error, text too short", async function() {
+    it("Test ZF_4 FAIL, text too short", async function() {
       await catchRevert(myContract.createRandomZombie("t", {from: accounts[1]}));
     });
-    it("should abort with an error, text too long", async function() {
+    it("Test ZF_4 FAIL, text too long", async function() {
       await catchRevert(myContract.createRandomZombie("testing and testing", {from: accounts[1]}));
     });
   });
@@ -56,14 +56,13 @@ contract("ZombieFactory3", function(accounts) {
       myContract = await artifacts.require("ZombieFactory.sol").new();
     });
 
-    it("should complete successfully, first zombie for account 1", async function() {
+    it("Test req ZF_9 True, first zombie for account 1", async function() {
       await myContract.createRandomZombie("text3", {from: accounts[1]});
     });
 
-    it("should abort with an error, not the first zombie", async function() {
+    it("Test req ZF_9 False, not first zombie for this owner", async function() {
       await catchRevert(myContract.createRandomZombie("text4", {from: accounts[1]}));
     });
-    assert.equal(1, 1, "Oops2");
   });
 });
 
@@ -81,7 +80,7 @@ contract("ZombieFactory4", function(accounts) {
             var s = log.args.name;
             var d = log.args.dna;
             d = d.toNumber(); // Print dna validates req ZF_1, ZF_2
-            console.log("Id: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
+            console.log("ZF_6 Id: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
           }
         }
       });
@@ -96,13 +95,10 @@ contract("ZombieFactory4", function(accounts) {
             var s = log.args.name;
             var d = log.args.dna;
             d = d.toNumber(); // Print dna validates req ZF_1, ZF_2
-            console.log("Id: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
-            assert.equal(n, 1, "Oops2");
+            console.log("ZF_6 Id: ", n, "Name: ", s, "dna: ", d);           
           }
         }
       });
-    /*    assert.equal(tx.logs[0].event, "ActionAddRecord");
-    assert.equal(tx.logs[0].args.projectId, 0); */
   });
 });
 

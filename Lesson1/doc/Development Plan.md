@@ -16,7 +16,7 @@ We are going to use:
 
 ## Structure
 
-CryptoZombies builds to x files that all inherit from the previous.  It will include ERC721 and OpenMath
+CryptoZombies builds to 5 files that all inherit from the previous.  It will include ERC721 and OpenMath
 
 ## Test Plan
 Write Truffle JavaScript tests that are traceable to the requirements in the code.

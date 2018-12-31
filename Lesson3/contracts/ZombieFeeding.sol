@@ -1,10 +1,10 @@
 pragma solidity >=0.4.0 <0.6.0;
 
-/// @title CryptoZombies Chapter 3
+/// @title CryptoZombies Lesson 3
 /// @author H4XF13LD MORRIS 💯💯😎💯💯 (documentation by Rex Hygate)
 // @Github https://github.com/SecurEth/CryptoZombiesT1/Chapter2
 // @SDD "./doc./System Description Document.md"
-// @ARCH ./doc/Crpto...
+// @ARCH ./doc/architecture.md
 
 import "./zombiefactory.sol";
 
@@ -26,28 +26,27 @@ contract ZombieFeeding is ZombieFactory {
 
     KittyInterface kittyContract;
 
-    // req C3_1 Allow the kitty address to be set and updated when required
-    // Check if there are kitties at that address
+    // req ZFE_6 Allow the kitty address to be set and updated when required    
     function setKittyContractAddress(address _address) external onlyOwner {
         kittyContract = KittyInterface(_address);
     }
-// req C3_1
+    // req ZFE_7 Start cooldown timer
     function _triggerCooldown(Zombie storage _zombie) internal {
         _zombie.readyTime = uint32(now + cooldownTime);
     }
-// req c3_2 returns TRUE when zombie ready to feed or fight
+    // req ZFE_8 returns TRUE when zombie ready to feed or fight
     function _isReady(Zombie storage _zombie) internal view returns (bool) {
         return (_zombie.readyTime <= now);
     }
 
-    // req C2_2 Mix the dna of the feeding zombie and the targetted kitty to a new dna
-    // req C2_3 If the species variable is "kitty" put a 99 at the end of the dna
-    // req C2_4 create a new zombie, called "Noname" with the resulting new dna
-    // req C2_1 Ensure only the owner can execute the function
+    // req ZFE_2 Mix the dna of the feeding zombie and the targetted kitty to a new dna
+    // req ZFE_3 If the species variable is "kitty" put a 99 at the end of the dna
+    // req ZFE_4 create a new zombie, called "Noname" with the resulting new dna
+    // req ZFE_1 Ensure only the owner can execute the function
     function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal {
         require(msg.sender == zombieToOwner[_zombieId], "Zombie not owned by you");
         Zombie storage myZombie = zombies[_zombieId];
-        // req C3_3
+        // req ZFE_9 Zombie must be ready
 //        require(_isReady(myZombie), "Zombie must be ready");
         uint mod_targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + mod_targetDna) / 2;
@@ -55,11 +54,11 @@ contract ZombieFeeding is ZombieFactory {
             newDna = newDna - newDna % 100 + 99;
         }
         _createZombie("NoName", newDna);
-        // req C3_4
+        // req ZFE_10 Start cooldown of zombie
         _triggerCooldown(myZombie);
     }
 
-    // req C2_5 Have one zombie feed on the specified kitty and create a new zombie of species kitty
+    // req ZFE_5 Have one zombie feed on the specified kitty and create a new zombie of species kitty
     function feedOnKitty(uint _zombieId, uint _kittyId) public {
         uint kittyDna;
         // Add require address is non zero

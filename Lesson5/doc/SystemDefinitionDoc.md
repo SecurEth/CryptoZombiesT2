@@ -25,6 +25,8 @@ It also allows transfer of zombies in two manners; the owner of a zombie can tra
 ## Currency
 Players can Level up a zombie by paying a fee
 
+The Game Administrator can withdraw the funds in the account  (from fees for leveling up)
+
 ## Game Rules
 Each player can only create one random zombie.  The Player enters a name for a zombie and asks to create a zombie.  
 

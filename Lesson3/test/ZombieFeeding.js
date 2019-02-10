@@ -19,19 +19,24 @@ contract("ZombieFeeding 1", function(accounts) {
             n = n.toNumber();
             var s = log.args.name;
             var d = log.args.dna;
-            d = d.toNumber(); // Print dna validates req ZF_1, ZF_2
-            console.log("Id: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
+            d = d.toNumber(); 
+            console.log("Id: ", n, "Name: ", s, "dna: ", d); 
           }
         }
       });
     });
 
+
     it("Test req ZFE_1 (true)", async function() {
-      await myContract.feedOnKitty(0, 21, { from: accounts[0] });
+        console.log("Wait 2.1 sec for cooldown.")
+        wait(2000);
+        await myContract.feedOnKitty(0, 21, { from: accounts[0] });
     });
 
     it("Test req ZFE_1 (false)", async function() {
-      await catchRevert(myContract.feedOnKitty(0, 21, { from: accounts[1] }));
+        console.log("Wait 2.2 sec for cooldown.")
+        wait(2000);
+        await catchRevert(myContract.feedOnKitty(0, 21, { from: accounts[1] }));
     }); 
   });
 });
@@ -57,6 +62,10 @@ contract("ZombieFeeding 2", function(accounts) {
         }
       }
     });
+
+    console.log("Wait 2.3 sec for cooldown.")
+    wait(2000);
+
     let tx2 = await instance
     .feedOnKitty(0, 21, { from: accounts[0] })
     .then(function(result) {
@@ -69,12 +78,44 @@ contract("ZombieFeeding 2", function(accounts) {
           var d = log.args.dna;
           d = d.toNumber(); 
           var e = d % 100;
-          console.log("Test ZFE_2, ZFE_3 (true), ZFE_4 Id of new Zombie: ", n, "Name: ", s, "dna: ", d); // Print id validates req ZF_1, ZF_2
-          assert.equal(e, 99, "Should be kitty dna");
+          console.log("Test ZFE_2, ZFE_3 (true), ZFE_4 Id of new Zombie: ", n, "Name: ", s, "dna: ", d); 
+          assert.equal(e, 99, "ZFE_5 Should be kitty dna");
           assert.equal(s, "NoName", "New Zombie name must be NoName");
         }
       }
     });
+    let tx3 = await instance
+    .setKittyContractAddress(0, { from: accounts[0] });
+    console.log("Test ZFE_6"); 
+    
+
   });
 });
 
+contract("ZombieFeeding 3", function(accounts) {
+  let myContract;
+  let catchRevert = require("./exceptions.js").catchRevert;
+
+  describe("Test req ZFE_6, ZFE_7", function() {
+    before(async function() {
+      myContract = await artifacts.require("ZombieFeeding.sol").new();
+    });
+
+    it("Test ZFE_7 Pass, with the owner", async function() {
+      await myContract.setKittyContractAddress(0x234, {from: accounts[0]});
+    });
+
+    it("Test ZFE_7 FAIL, not the owner", async function() {
+      await catchRevert(myContract.setKittyContractAddress(0x234, {from: accounts[1]}));
+    });
+  });
+});
+
+
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
+ }
+}

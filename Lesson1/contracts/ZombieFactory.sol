@@ -5,7 +5,7 @@ pragma solidity >=0.4.0 <0.6.0;
 /// @author H4XF13LD MORRIS 💯💯😎💯💯 (documentation by Rex Hygate)
 // @Github https://github.com/SecurEth/CryptoZombiesT2/Lesson1
 // @SDD "./doc./System Description Document.md"
-// @ARCH ./doc/Crpto...
+// @ARCH ./doc/architecure.md
 contract ZombieFactory {
 
     event NewZombie(uint zombieId, string name, uint dna);

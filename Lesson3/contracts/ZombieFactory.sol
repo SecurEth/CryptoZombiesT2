@@ -1,10 +1,11 @@
 pragma solidity >=0.4.0 <0.6.0;
 
-/// @title CryptoZombies Chapter 3
+/// @title CryptoZombies Lesson 3
 /// @author H4XF13LD MORRIS 💯💯😎💯💯 (documentation by Rex Hygate)
 // @Github https://github.com/SecurEth/CryptoZombiesT2/Lesson3
 // @SDD "./doc./System Description Document.md"
-// @ARCH ./doc/Crpto...
+// @ARCH ./doc/architecure.md
+
 import "./ownable.sol";
 
 contract ZombieFactory is Ownable {
@@ -13,7 +14,7 @@ contract ZombieFactory is Ownable {
 
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
-    uint cooldownTime = 1 days;
+    uint cooldownTime = 3 seconds;
     uint minNameLength = 1;
     uint maxNameLength = 15;
 
@@ -41,12 +42,14 @@ contract ZombieFactory is Ownable {
 // req ZF_2 Emit the Zombie id, name and dna
 // req ZF_7 Save the owner of the zombie for future use
 // req ZF_8 Keep a count of the number of zombies each owner has
+// req ZF_10 Initiate cooldown of zombie
     function _createZombie(string memory _name, uint _dna) internal  {
         uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
         emit NewZombie(id, _name, _dna);
     } 
+
 // req ZF_3 Generate a pseudo random number from a string which is returned as the dna
 // req ZF_4 Throw an error if string length is too short or long
 // req ZF_5 Create id which represents the index of the Zombie in the struct on blockchain

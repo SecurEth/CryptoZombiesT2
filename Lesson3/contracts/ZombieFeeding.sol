@@ -27,14 +27,15 @@ contract ZombieFeeding is ZombieFactory {
     KittyInterface kittyContract;
 
     // req ZFE_6 Allow the kitty address to be set and updated when required    
+    // req ZFE_7 Only the contract owner can execute this contract
     function setKittyContractAddress(address _address) external onlyOwner {
         kittyContract = KittyInterface(_address);
     }
-    // req ZFE_7 Start cooldown timer
+    // req ZFE_8 Start cooldown timer
     function _triggerCooldown(Zombie storage _zombie) internal {
         _zombie.readyTime = uint32(now + cooldownTime);
     }
-    // req ZFE_8 returns TRUE when zombie ready to feed or fight
+    // req ZFE_9 returns TRUE when zombie ready to feed or fight
     function _isReady(Zombie storage _zombie) internal view returns (bool) {
         return (_zombie.readyTime <= now);
     }
@@ -47,7 +48,7 @@ contract ZombieFeeding is ZombieFactory {
         require(msg.sender == zombieToOwner[_zombieId], "Zombie not owned by you");
         Zombie storage myZombie = zombies[_zombieId];
         // req ZFE_9 Zombie must be ready
-//        require(_isReady(myZombie), "Zombie must be ready");
+        require(_isReady(myZombie), "Zombie2 must be ready");
         uint mod_targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + mod_targetDna) / 2;
         if (keccak256(abi.encodePacked(_species)) == keccak256(abi.encodePacked("kitty"))) {

@@ -21,7 +21,7 @@ contract("MyContractTest", function(accounts) {
     });
 });
 });
-
+/*
 contract("ZombieFactory", function(accounts) {
   
   it("Test reqs ZF_1, ZF_2, ZF_3, ZF_5, ZF_6", async function() {
@@ -44,7 +44,7 @@ contract("ZombieFactory", function(accounts) {
         }
       });
     /*    assert.equal(tx.logs[0].event, "ActionAddRecord");
-    assert.equal(tx.logs[0].args.projectId, 0); */
+    assert.equal(tx.logs[0].args.projectId, 0); */ /*
   });
   it("Test reqs ZF_6", async function() {
     let instance = await ZombieFactorytestContract.deployed();
@@ -64,7 +64,7 @@ contract("ZombieFactory", function(accounts) {
         }
       });
     /*    assert.equal(tx.logs[0].event, "ActionAddRecord");
-    assert.equal(tx.logs[0].args.projectId, 0); */
-  });
-});
+    assert.equal(tx.logs[0].args.projectId, 0); 
+  }); 
+}); */
 

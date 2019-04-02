@@ -20,12 +20,14 @@ contract KittyInterface {
         uint256 sireId,
         uint256 generation,
         uint256 genes);
-}
+} 
 
 contract ZombieFeeding is ZombieFactory {
 
+    event Kitdna2(uint kitDna);
+
     // Fixed address of one particular kitty for now
-    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+    address ckAddress = 0x0ceF4411B29262300347072c24F2A53612F88633;
     KittyInterface kittyContract = KittyInterface(ckAddress);
 
     // req ZFE_1 Ensure only the owner can execute the function
@@ -45,12 +47,12 @@ contract ZombieFeeding is ZombieFactory {
 
     // req ZFE_5 Have one zombie feed on the specified kitty and create a new zombie of species kitty
     function feedOnKitty(uint _zombieId, uint _kittyId) public {
-        uint kittyDna;
+        uint kittyDna = 5;
 //        (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
 //         Removed because it cannot be tested.  Replace before deployment
         kittyDna = 6231783;     // Delete before deployment
         uint dummy = _kittyId;  // Delete before deployment
-        dummy++;                // Delete before deployment
+        dummy++;                // Delete before deployment 
         feedAndMultiply(_zombieId, kittyDna, "kitty");
     }
 

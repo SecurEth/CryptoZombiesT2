@@ -6,7 +6,9 @@ pragma solidity >=0.4.0 <0.6.0;
 // @SDD "./doc./System Description Document.md"
 // @ARCH ./doc/architecure.md
 
-contract ZombieFactory {
+import "./testSupportCode.sol";
+contract ZombieFactory is TestSupportCode {
+//contract ZombieFactory {
 
     event NewZombie(uint zombieId, string name, uint dna, address zombieToOwner, uint ownerZombieCount);
 

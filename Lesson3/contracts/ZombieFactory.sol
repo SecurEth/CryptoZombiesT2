@@ -6,11 +6,14 @@ pragma solidity >=0.4.0 <0.6.0;
 // @SDD "./doc./System Description Document.md"
 // @ARCH ./doc/architecure.md
 
-import "./ownable.sol";
+//import "./ownable.sol";
+//contract ZombieFactory is Ownable {
 
-contract ZombieFactory is Ownable {
+import "./testSupportCode.sol";
+contract ZombieFactory is TestingSupportCode {
 
-    event NewZombie(uint zombieId, string name, uint dna);
+    event NewZombie(uint zombieId, string name, uint dna, address zombieToOwner, uint ownerZombieCount);
+//    event NewZombie(uint zombieId, string name, uint dna);
 
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
@@ -29,7 +32,7 @@ contract ZombieFactory is Ownable {
 
     mapping (uint => address) public zombieToOwner;
     mapping (address => uint) ownerZombieCount;
-
+ 
 // req ZF_6 Make Zombie in struct and emit id, name and dna
 // req ZF_9 Only run this function for the first zombie for each owner
     function createRandomZombie(string memory _name) public {
@@ -47,7 +50,8 @@ contract ZombieFactory is Ownable {
         uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
-        emit NewZombie(id, _name, _dna);
+        emit NewZombie(id, _name, _dna,  zombieToOwner[id], ownerZombieCount[msg.sender]);
+//        emit NewZombie(id, _name, _dna);
     } 
 
 // req ZF_3 Generate a pseudo random number from a string which is returned as the dna

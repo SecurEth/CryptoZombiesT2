@@ -6,7 +6,17 @@ contract('ZombieFeeding', (accounts) => {
     let zb;
 
     beforeEach(async () => {
-        zb = await ZombieFactory.new({from: accounts[1]});
+        zb = await ZombieFactory.new({from: accounts[0]});
+        await zb.createKittie ({from: accounts[0]})
+        .then(function(result) {
+            for (var i = 0; i < result.logs.length; i++) {
+                var log = result.logs[i];
+                if (log.event == "KittieAddr") {
+                    var ad = log.args.kittieToOwner;
+//                    console.log("Kittie Address: ", ad);
+                }
+            }
+        });
     });
 
     it("Test req ZFE_1 (true)", async function() {
@@ -36,7 +46,7 @@ contract('ZombieFeeding', (accounts) => {
                 }
             }
         });
-        await zb.feedOnKitty(0, 21, {from: accounts[0]})
+        await zb.feedOnKitty(0, 1, {from: accounts[0]})
         .then(function(result) {
             for (var i = 0; i < result.logs.length; i++) {
                 var log = result.logs[i];

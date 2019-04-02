@@ -16,7 +16,7 @@ contract ZombieHelper is ZombieFeeding {
     }
     // req ZH_1 Changes the name of a zombie
     // req ZH_2 Name change can only be done by the zombie's owner
-    function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
+    function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) {
         require(msg.sender == zombieToOwner[_zombieId], "Zombie not owned by you");
         // Check length of name
         zombies[_zombieId].name = _newName;
@@ -41,4 +41,5 @@ contract ZombieHelper is ZombieFeeding {
         }   
         return result;
     }
+
 }

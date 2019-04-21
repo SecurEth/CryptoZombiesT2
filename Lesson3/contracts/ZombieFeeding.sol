@@ -24,7 +24,9 @@ contract KittyInterface {
 
 contract ZombieFeeding is ZombieFactory {
 
-    KittyInterface kittyContract;
+    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+  
+    KittyInterface kittyContract = KittyInterface(ckAddress);
 
     // req ZFE_6 Allow the kitty address to be set and updated when required    
     // req ZFE_7 Only the contract owner can execute this contract

@@ -9,7 +9,12 @@ contract('ZombieHelper', (accounts) => {
         zb = await ZombieHelper.new({from: accounts[0]});
     });
 
+/*   ----------------------------------------------------------------
+        Defering tests for Zombie Helper until Lesson 4 where the Zombie
+        Attack logic is there to exercise the code
+    ---------------------------------------------------------------------------
 
+    
     it("Test req ZFE_1 (true)", async function() {
         await zb.createRandomZombie("Zombie1", {from: accounts[0]});
         console.log("Start wait 5 sec");
@@ -76,7 +81,7 @@ contract('ZombieHelper', (accounts) => {
             zb.setKittyContractAddress(ad, { from: accounts[1] }),
             "Called by other than owner."
         );
-    }); */
+    }); 
     it("Cooldown Timer True, Test ZFE_9 True, ZFE_8, ZFE_10", async function() {
         await zb.createRandomZombie("Zombie1", {from: accounts[0]})
         .then(function(result) {
@@ -120,7 +125,7 @@ contract('ZombieHelper', (accounts) => {
             zb.feedOnKitty(0, 21, { from: accounts[0] }),
             "Zombie must be ready"
         );
-    });
+    }); */
 });
 
 function wait(ms){

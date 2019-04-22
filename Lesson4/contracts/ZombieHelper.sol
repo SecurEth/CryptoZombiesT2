@@ -4,7 +4,7 @@
 // @SDD "./doc./System Description Document.md"
 // @ARCH ./doc/Crpto...
 
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./zombiefeeding.sol";
 
@@ -19,8 +19,7 @@ contract ZombieHelper is ZombieFeeding {
 
 // req ZH1 The owner can withdraw the balance of the contract
     function withdraw() external onlyOwner {
-        address _owner = owner();
-        _owner.transfer(address(this).balance);
+       msg.sender.transfer(address(this).balance);
     }
 
 // req ZH2 The owner can change the level up fee
@@ -38,7 +37,7 @@ contract ZombieHelper is ZombieFeeding {
 
 // req ZH5 Changes the name of a zombie
 // req ZH6 Name change can only be done by the zombie's owner
-    function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
+    function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) {
         require(msg.sender == zombieToOwner[_zombieId]);
         // Check length of name
         zombies[_zombieId].name = _newName;
@@ -51,7 +50,7 @@ contract ZombieHelper is ZombieFeeding {
     }
 
 // ZH9 Create and return an array of the number of zombies by owner for use in other function
-    function getZombiesByOwner(address _owner) external view returns(uint[]) {
+    function getZombiesByOwner(address _owner) external view returns(uint[] memory) {
         uint[] memory result = new uint[](ownerZombieCount[_owner]);
         uint counter = 0;
         for (uint i = 0; i < zombies.length; i++) {

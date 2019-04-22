@@ -64,7 +64,6 @@ contract ZombieFeeding is ZombieFactory {
     // req ZFE_5 Have one zombie feed on the specified kitty and create a new zombie of species kitty
     function feedOnKitty(uint _zombieId, uint _kittyId) public {
         uint kittyDna;
-        // Add require address is non zero
 //        (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
 //         Removed because it cannot be tested.  Replace before deployment
         kittyDna = 6231783;     // Delete before deployment

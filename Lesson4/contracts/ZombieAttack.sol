@@ -4,18 +4,18 @@
 // @SDD "./doc./System Description Document.md"
 // @ARCH ./doc/Crpto...
 
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./zombiehelper.sol";
 
-contract ZombieBattle is ZombieHelper {
+contract ZombieAttack is ZombieHelper {
     uint randNonce = 0;
     uint attackVictoryProbability = 70;
 
     //req ZA_1 Generate a random number between 0 and the given Modulus
     function randMod(uint _modulus) internal returns(uint) {
         randNonce++;
-        return uint(keccak256(now, msg.sender, randNonce)) % _modulus;
+        return (uint(keccak256(abi.encodePacked(now, msg.sender, randNonce))) % _modulus);
     }
     // req ZA_2 Perform a zombie on zombie attack
     // ZA_3 where your zombie wins, increment wincount
